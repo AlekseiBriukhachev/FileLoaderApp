@@ -380,6 +380,7 @@ public class FileLoaderView implements ActionListener {
             startBtn.setEnabled(false);
 
             processArea.setText("Процесс сбора данных начался...\n");
+            processArea.append("\n");
             long startTime = System.currentTimeMillis();
             analyzeDirectory(selectedDirectory);
 
@@ -389,12 +390,16 @@ public class FileLoaderView implements ActionListener {
             long endTime = System.currentTimeMillis();
 
             processArea.append("Процесс сбора данных закончился.\n");
+            processArea.append("\n");
             processArea.append("Создан временный файл " + jsonFilePath + ".\n");
+            processArea.append("\n");
             processArea.append("Затраченное время (секунд): " + (endTime - startTime) / 1000.0 + "\n");
+            processArea.append("\n");
             processedFilesCount.set(0);
             FileAnalyzeUtils.writeJSONFile(FileAnalyzeUtils.jsonArray, jsonFilePath);
         } catch (Exception e) {
             processArea.append("Процесс сбора данных закончился.\n");
+            processArea.append("\n");
             processArea.append(e.getMessage() + "\n");
             JOptionPane.showMessageDialog(frameApp, "Ошибка при анализе данных: " + e.getMessage(), "Ошибка", JOptionPane.ERROR_MESSAGE);
 
@@ -452,6 +457,8 @@ public class FileLoaderView implements ActionListener {
                 double progressPercentage = (double) totalFiles / FileAnalyzeUtils.getTotalFilesCount(selectedDirectory) * 100;
                 processArea.append("Прогресс: " + totalFiles + " / " + FileAnalyzeUtils.getTotalFilesCount(selectedDirectory)
                         + " (" + String.format("%.2f", progressPercentage) + "%)\n");
+                processArea.append("\n");
+
 
                 FileAnalyzeUtils.fillJSONArray(file, fileSize, creationDate, lastModifiedDate, linesFromFile);
                 processArea.setCaretPosition(processArea.getDocument().getLength());

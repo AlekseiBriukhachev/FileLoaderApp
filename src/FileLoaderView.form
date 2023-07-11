@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="FileLoaderView">
+  <grid id="27dc6" binding="mainJPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="20" left="20" bottom="20" right="20"/>
+    <constraints>
+      <xy x="114" y="49" width="990" height="887"/>
+    </constraints>
+    <properties>
+      <autoscrolls value="false"/>
+      <enabled value="false"/>
+      <font size="14"/>
+      <preferredSize width="1500" height="950"/>
+    </properties>
+    <border type="none" title="Поверхностный сбор содержимого файлов" title-justification="2" title-position="1"/>
+    <children>
+      <tabbedpane id="5f1b" binding="paneJPane">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="200" height="200"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font size="18"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="4b649" binding="firstTabJPane" layout-manager="GridLayoutManager" row-count="5" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Сбор данных"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="4b688" class="javax.swing.JLabel" binding="dirNameLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Директория для обработки"/>
+                </properties>
+              </component>
+              <component id="6591f" class="javax.swing.JTextField" binding="dirChooseField">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="611" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="2a65e" class="javax.swing.JButton" binding="dirSubmitBtn">
+                <constraints>
+                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="78" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <actionCommand value="chooseDirToAnalyze"/>
+                  <font size="14"/>
+                  <text value="Выбрать"/>
+                </properties>
+              </component>
+              <component id="7c450" class="javax.swing.JTextField" binding="numRowField">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="50" height="-1"/>
+                    <preferred-size width="100" height="30"/>
+                    <maximum-size width="100" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="ebd0b" class="javax.swing.JLabel" binding="numRowLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Количество строк"/>
+                </properties>
+              </component>
+              <component id="e6d3a" class="javax.swing.JButton" binding="stopBtn">
+                <constraints>
+                  <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="300" height="-1"/>
+                    <preferred-size width="300" height="-1"/>
+                    <maximum-size width="500" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <actionCommand value="cancelAnalyze"/>
+                  <font size="14"/>
+                  <text value="Прервать"/>
+                </properties>
+              </component>
+              <component id="80b04" class="javax.swing.JButton" binding="clrBtn">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="86" height="10"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <actionCommand value="clearProcessArea"/>
+                  <font size="14"/>
+                  <text value="Очистить"/>
+                </properties>
+              </component>
+              <component id="73078" class="javax.swing.JButton" binding="startBtn">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="300" height="-1"/>
+                    <preferred-size width="300" height="-1"/>
+                    <maximum-size width="500" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <actionCommand value="startAnalyze"/>
+                  <font size="14"/>
+                  <text value="Старт обработки"/>
+                </properties>
+              </component>
+              <scrollpane id="86aab" binding="processScrollPane">
+                <constraints>
+                  <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="a811f" class="javax.swing.JTextArea" binding="processArea">
+                    <constraints/>
+                    <properties>
+                      <autoscrolls value="true"/>
+                      <font size="14"/>
+                      <requestFocusEnabled value="true"/>
+                      <rows value="40"/>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+            </children>
+          </grid>
+          <grid id="6f2cc" binding="secondTabJPane" layout-manager="GridLayoutManager" row-count="9" column-count="8" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="20" left="20" bottom="20" right="20"/>
+            <constraints>
+              <tabbedpane title="Копирование файлов"/>
+            </constraints>
+            <properties>
+              <autoscrolls value="false"/>
+              <enabled value="false"/>
+              <font size="14"/>
+              <preferredSize width="722" height="268"/>
+            </properties>
+            <border type="none" title="" title-justification="2" title-position="1"/>
+            <children>
+              <component id="d9509" class="javax.swing.JLabel" binding="destPathJLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="2" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="100" height="20"/>
+                    <preferred-size width="120" height="20"/>
+                    <maximum-size width="120" height="80"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Выгрузить"/>
+                </properties>
+                <clientProperties>
+                  <html.disable class="java.lang.Boolean" value="false"/>
+                </clientProperties>
+              </component>
+              <component id="4f2bf" class="javax.swing.JLabel" binding="copyDestPathJLabel">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="2" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="100" height="20"/>
+                    <preferred-size width="120" height="20"/>
+                    <maximum-size width="120" height="80"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Копировать"/>
+                </properties>
+              </component>
+              <component id="ff03b" class="javax.swing.JTextField" binding="resDestFilePathTextField">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                </properties>
+              </component>
+              <component id="6b335" class="javax.swing.JButton" binding="destPathChooseBtn">
+                <constraints>
+                  <grid row="1" column="5" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <actionCommand value="createFile"/>
+                  <font size="14"/>
+                  <label value="Выбрать"/>
+                  <text value="Выбрать"/>
+                </properties>
+              </component>
+              <component id="f76" class="javax.swing.JButton" binding="uploadToFileBtn">
+                <constraints>
+                  <grid row="3" column="5" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <actionCommand value="uploadToFile"/>
+                  <font size="14"/>
+                  <label value="Выгрузить в файл"/>
+                  <text value="Выгрузить в файл"/>
+                </properties>
+              </component>
+              <component id="bff47" class="javax.swing.JTextField" binding="fulPathDirTextField">
+                <constraints>
+                  <grid row="5" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                </properties>
+              </component>
+              <component id="ba01a" class="javax.swing.JButton" binding="chooseDirBtn">
+                <constraints>
+                  <grid row="5" column="5" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <actionCommand value="chooseDirToCopy"/>
+                  <font size="14"/>
+                  <label value="Выбрать"/>
+                  <text value="Выбрать"/>
+                </properties>
+              </component>
+              <component id="5448e" class="javax.swing.JButton" binding="copyBtn">
+                <constraints>
+                  <grid row="7" column="5" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <actionCommand value="copyFiles"/>
+                  <font size="14"/>
+                  <label value="Копировать"/>
+                  <text value="Копировать"/>
+                </properties>
+              </component>
+              <splitpane id="dc683" binding="splitPaneMain">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="8" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="200"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <scrollpane id="9cfb6" binding="treeScrollPane">
+                    <constraints>
+                      <splitpane position="left"/>
+                    </constraints>
+                    <properties>
+                      <minimumSize width="50" height="15"/>
+                      <preferredSize width="250" height="400"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="33194" class="javax.swing.JTree" binding="tree">
+                        <constraints/>
+                        <properties>
+                          <autoscrolls value="true"/>
+                          <dragEnabled value="false"/>
+                          <largeModel value="true"/>
+                        </properties>
+                        <clientProperties>
+                          <html.disable class="java.lang.Boolean" value="true"/>
+                        </clientProperties>
+                      </component>
+                    </children>
+                  </scrollpane>
+                  <scrollpane id="59741" binding="tableScrollPane">
+                    <constraints>
+                      <splitpane position="right"/>
+                    </constraints>
+                    <properties>
+                      <horizontalScrollBarPolicy value="32"/>
+                      <verticalScrollBarPolicy value="22"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="9b810" class="javax.swing.JTable" binding="fileJTable">
+                        <constraints/>
+                        <properties>
+                          <autoResizeMode value="4"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </scrollpane>
+                </children>
+              </splitpane>
+              <scrollpane id="cf93a">
+                <constraints>
+                  <grid row="8" column="0" row-span="1" col-span="8" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="3a776" class="javax.swing.JTextArea" binding="resultTextArea">
+                    <constraints/>
+                    <properties>
+                      <font size="14"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+              <component id="ae5c8" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="содержимое"/>
+                </properties>
+              </component>
+              <component id="c8e0b" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="файлов в"/>
+                </properties>
+              </component>
+              <component id="e92ed" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="отмченные галкой"/>
+                </properties>
+              </component>
+              <component id="8e318" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="в дирекотрию"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </tabbedpane>
+    </children>
+  </grid>
+</form>

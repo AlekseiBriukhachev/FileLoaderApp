@@ -291,24 +291,6 @@
                       </component>
                     </children>
                   </scrollpane>
-                  <scrollpane id="59741" binding="tableScrollPane">
-                    <constraints>
-                      <splitpane position="right"/>
-                    </constraints>
-                    <properties>
-                      <horizontalScrollBarPolicy value="32"/>
-                      <verticalScrollBarPolicy value="22"/>
-                    </properties>
-                    <border type="none"/>
-                    <children>
-                      <component id="9b810" class="javax.swing.JTable" binding="fileJTable">
-                        <constraints/>
-                        <properties>
-                          <autoResizeMode value="4"/>
-                        </properties>
-                      </component>
-                    </children>
-                  </scrollpane>
                 </children>
               </splitpane>
               <scrollpane id="cf93a">

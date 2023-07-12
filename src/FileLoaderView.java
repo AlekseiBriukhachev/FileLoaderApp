@@ -2,15 +2,15 @@ import model.*;
 import utils.FileAnalyzeUtils;
 
 import javax.swing.*;
+import javax.swing.event.TreeModelListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.TableColumn;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class FileLoaderView implements ActionListener {
-    private String jsonFilePath = System.getProperty("user.dir") + "\\temp.json";
+    private final String jsonFilePath = System.getProperty("user.dir") + "\\temp.json";
     private JPanel mainJPanel;
     private JTabbedPane paneJPane;
     private JTextField dirChooseField;
@@ -69,32 +69,7 @@ public class FileLoaderView implements ActionListener {
         uploadToFileBtn.addActionListener(this);
         chooseDirBtn.addActionListener(this);
         copyBtn.addActionListener(this);
-
-        JCheckBox headerCheckBox = new JCheckBox();
-        headerCheckBox.addActionListener(e -> {
-            boolean selected = headerCheckBox.isSelected();
-            for (int row = 0; row < fileJTable.getRowCount(); row++) {
-                fileJTable.setValueAt(selected, row, 0);
-            }
-        });
-        headerCheckBox.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                boolean selected = e.getStateChange() == ItemEvent.SELECTED;
-//                setColumnSelected(selected);
-            }
-        });
-
     }
-//    private void setColumnSelected(boolean selected) {
-//        selectedRows.clear();
-//        if (selected) {
-//            for (int i = 0; i < table.getRowCount(); i++) {
-//                selectedRows.add(i);
-//            }
-//        }
-//        table.repaint();
-//    }
 
     private void createTable() {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
@@ -129,13 +104,6 @@ public class FileLoaderView implements ActionListener {
 
 
     public static void main(String[] args) {
-//        if (args.length != 1) {
-//            System.err.println("Ошибка: Неправильное количество аргументов.");
-//            System.err.println("Использование: java -jar ваш_файл.jar аргумент1");
-//            System.exit(1);
-//        }
-//
-//        jsonFilePath = args[0] + "\\temp.json";
 
         frameApp.setTitle("Поверхностный сбор содержимого файлов");
         frameApp.setContentPane(new FileLoaderView().mainJPanel);
@@ -161,7 +129,6 @@ public class FileLoaderView implements ActionListener {
     private void copyFilesToDir() {
 
         List<FileNodeForModel> selectedFiles = tableModel.getSelectedFiles();
-        resultTextArea.setText("В таблице выбрано " + selectedFiles.size() + " файлов.\n");
         if (selectedFiles.isEmpty()) {
             JOptionPane.showMessageDialog(frameApp, "Не выбраны файлы для копирования", "Ошибка", JOptionPane.ERROR_MESSAGE);
             return;
@@ -172,8 +139,6 @@ public class FileLoaderView implements ActionListener {
             return;
         }
 
-        resultTextArea.append("Процесс копирования файлов данных начался...\n");
-        long startTime = System.currentTimeMillis();
 
         try {
             List<String> sourceFilePaths = new ArrayList<>();
@@ -183,14 +148,9 @@ public class FileLoaderView implements ActionListener {
             }
             String targetRootFolder = fulPathDirTextField.getText();
             copyFilesInFolder(sourceFilePaths, targetRootFolder);
-            long endTime = System.currentTimeMillis();
 
-            resultTextArea.append("Затраченное время (секунд): " + (endTime - startTime) / 1000.0 + "\n");
-            resultTextArea.append("Процесс копирования закончился.\n");
             JOptionPane.showMessageDialog(frameApp, "Файлы успешно скопированы", "Информация", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            resultTextArea.append("Процесс копирования закончился.\n");
-            resultTextArea.append(e.getMessage());
             JOptionPane.showMessageDialog(frameApp, "Ошибка при копировании файлов: " + e.getMessage(), "Ошибка", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -208,7 +168,6 @@ public class FileLoaderView implements ActionListener {
 
     private String findRootFolder(List<String> filePaths) {
         String rootFolder = null;
-        resultTextArea.append("Поиск выбранных файлов и определении их корневой папки.\n");
 
         for (String filePath : filePaths) {
             Path path = Paths.get(filePath);
@@ -226,11 +185,9 @@ public class FileLoaderView implements ActionListener {
             }
         }
 
-        resultTextArea.append("Для выбранных файлов найдена корневая папка: " + rootFolder + "\n");
         return rootFolder;
     }
     private void copyFiles(List<String> sourceFilePaths, String targetRootFolder, String rootFolder) throws IOException {
-        resultTextArea.append("Копирование " + sourceFilePaths.size() + " файлов в новую папку: " + targetRootFolder + "\n");
         for (String sourceFilePath : sourceFilePaths) {
             Path sourcePath = Paths.get(sourceFilePath);
             Path relativePath = Paths.get(rootFolder).relativize(sourcePath);
@@ -240,13 +197,7 @@ public class FileLoaderView implements ActionListener {
             targetFile.getParentFile().mkdirs();
 
             Files.copy(sourcePath, targetPath);
-            resultTextArea.append("Файл из папки " + sourcePath + " скопирован в новую папку: " + targetPath + "\n");
-            int totalFiles = processedFilesCount.incrementAndGet();
-            double progressPercentage = (double) totalFiles / sourceFilePaths.size() * 100;
-            resultTextArea.append("Прогресс: " + totalFiles + " / " + sourceFilePaths.size()
-                    + " (" + String.format("%.2f", progressPercentage) + "%)\n");
 
-            resultTextArea.setCaretPosition(resultTextArea.getDocument().getLength());
         }
     }
 
@@ -262,51 +213,19 @@ public class FileLoaderView implements ActionListener {
             uploadToFileBtn.setText("Выгрузить в файл");
             return;
         }
-        resultTextArea.setText("Процесс переноса данных начался...\n");
-        long startTime = System.currentTimeMillis();
 
         try {
             for (FileNodeForModel fileNode : selectedFiles) {
                 List<String> fileData = FileAnalyzeUtils.copyDataToFile(jsonFilePath, fileNode);
-                resultTextArea.append("Данные файла " + fileNode.getFullPath() + " добавлены.\n");
                 FileAnalyzeUtils.saveToFile(resDestFilePathTextField.getText(), fileData);
             }
 
-            long endTime = System.currentTimeMillis();
 
-            resultTextArea.append("Затраченное время (секунд): " + (endTime - startTime) / 1000.0 + "\n");
-            resultTextArea.append("Процесс переноса данных закончился.\n");
-
-            resultTextArea.append(FileAnalyzeUtils.deleteTempFile(jsonFilePath) + "\n");
             JOptionPane.showMessageDialog(frameApp, "Данные успешно перенесены", "Информация", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            resultTextArea.append(e.getMessage() + "\n");
-            resultTextArea.append("Процесс переноса данных закончился.\n");
-            resultTextArea.append(FileAnalyzeUtils.deleteTempFile(jsonFilePath) + "\n");
             JOptionPane.showMessageDialog(frameApp, "Ошибка при переносе данных: " + e.getMessage(), "Ошибка", JOptionPane.ERROR_MESSAGE);
         } finally {
             uploadToFileBtn.setText("Выгрузить в файл");
-        }
-    }
-
-    private void createFile() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Создать файл");
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooser.setSelectedFile(new File("новый_файл.txt"));
-
-        int userSelection = fileChooser.showSaveDialog(frameApp);
-
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            File fileToSave = fileChooser.getSelectedFile();
-            String filePath = fileToSave.getAbsolutePath();
-            try {
-                JOptionPane.showMessageDialog(frameApp, "Файл успешно создан.");
-                resDestFilePathTextField.setText(filePath);
-            } catch (Exception ex) {
-                processArea.append(ex.getMessage() + "\n");
-                JOptionPane.showMessageDialog(frameApp, "Ошибка при создании файла: " + ex.getMessage(), "Ошибка", JOptionPane.ERROR_MESSAGE);
-            }
         }
     }
 
@@ -345,7 +264,7 @@ public class FileLoaderView implements ActionListener {
             }
         }
         try {
-            if (actionCommand.equals("chooseDirToAnalyze")) {
+            if (actionCommand.equals("chooseDirToAnalyze") && result == JFileChooser.APPROVE_OPTION) {
                 FileAnalyzeUtils.updateTreeTable(treeModel, tableModel, selectedDirectory);
             }
         } catch (Exception e) {
